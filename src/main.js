@@ -44,7 +44,7 @@ const games = {
 };
 
 
-const emulatorPath = path.join(__dirname, 'emulator', 'visualboyadvance-m.exe'); // ajuste conforme o seu emulador
+const emulatorPath = path.join(__dirname, 'emulator', 'visualboyadvance-m.exe'); 
 
 let mainWindow;
 

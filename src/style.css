@@ -59,25 +59,27 @@ body {
 
 
 .game-container {
-    display: grid; /* Alinha os cards lado a lado */
+    display: flex; /* Alinha os cards lado a lado */
     justify-content: center; /* Centraliza os cards na tela */
     gap: 20px; /* Espaço entre os cards */
-    grid-template-columns:repeat(4, 2fr)
+    flex-wrap: wrap;
     
-
-
+    
 }
 
 .game-card {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column; /* Alinha os elementos verticalmente */
-    justify-content: space-between; /* Espaça a imagem e o texto uniformemente */
+    justify-content: space-evenly; /* Espaça a imagem e o texto uniformemente */
     align-items: center; /* Centraliza os elementos */
     background-color: #1c1c1c;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 300px;
+    height: 300px; 
 }
 
 .game-card:hover {
@@ -87,9 +89,9 @@ body {
 
 .game-card img {
     width: 150px;
-    height: 150px; /* Tamanho uniforme para imagens */
-    border-radius: 5px 5px 0 0; /* Bordas arredondadas no topo */
-    margin-bottom: 0; /* Remove margem inferior */
+    height: 150px; 
+    border-radius: 5px 5px 0 0; 
+    margin-bottom: 0; 
 
 }
 
@@ -146,14 +148,3 @@ button {
 }
 
 
-@media (max-width: 768px) {
-    .games-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
-    }
-}
-
-@media (max-width: 480px) {
-    .games-container {
-        grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
-    }
-}

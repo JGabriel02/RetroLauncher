@@ -1,0 +1,159 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #111010;
+    color: white;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 15px; /* Reduzido para um header mais compacto */
+    height: 50px; /* Altura menor */
+    background-color: #222;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.welcome {
+    margin: 0;
+    font-size: 16px; /* Fonte ajustada para combinar com o novo tamanho */
+}
+
+.window-buttons {
+    display: flex;
+    margin-right: 20px
+}
+
+.window-buttons button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 3px 8px; /* Botões mais compactos */
+    border-radius: 3px; /* Bordas mais refinadas */
+    cursor: pointer;
+    font-size: 12px; /* Tamanho reduzido da fonte */
+    width: 30px; /* Largura ajustada */
+    height: 30px; /* Altura ajustada */
+    
+}
+
+.window-buttons button:last-child {
+    margin-right: 0; /
+}
+
+.window-buttons button:hover {
+    background-color: #666;
+}
+
+
+.game-container {
+    display: grid; /* Alinha os cards lado a lado */
+    justify-content: center; /* Centraliza os cards na tela */
+    gap: 20px; /* Espaço entre os cards */
+    grid-template-columns:repeat(4, 2fr)
+    
+
+
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: space-between; /* Espaça a imagem e o texto uniformemente */
+    align-items: center; /* Centraliza os elementos */
+    background-color: #1c1c1c;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card:hover {
+    transform: scale(1.05); /* Destaca o card ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.game-card img {
+    width: 150px;
+    height: 150px; /* Tamanho uniforme para imagens */
+    border-radius: 5px 5px 0 0; /* Bordas arredondadas no topo */
+    margin-bottom: 0; /* Remove margem inferior */
+
+}
+
+.game-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ddd;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.game-description {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.game-card:hover .game-description {
+    display: block;
+}
+
+button {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #333;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 2px solid #333;
+}
+
+.progress-bar {
+    width: 0;
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    transition: width 0.2s ease;
+}
+
+
+@media (max-width: 768px) {
+    .games-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .games-container {
+        grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
+    }
+}

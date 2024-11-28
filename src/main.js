@@ -4,103 +4,148 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 
-// Caminhos locais para o emulador e os jogos
-const emulatorPath = path.join(__dirname, 'emulator', 'visualboyadvance-m.exe');
-const romPath = path.join(__dirname, 'games', 'Pokemon - FireRed Version (USA).gba');
-
-// Links do Google Drive para download
-const emulatorUrl = 'https://drive.google.com/uc?export=download&id=15qciTICI5GoTD6ex2VavgkrJ5m7cidIt';  // Emulador
-const romUrl = 'https://drive.google.com/uc?export=download&id=1N50ocelodGX06t7_vWkBz7yDGyuMd6SU';   // ROM de Pokémon
-
-// Função para criar a janela do launcher
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+const games = {
+    pokemon_radicalred: {
+        path: path.join(__dirname, 'games', 'radicalred 4.1.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1Sv4jGmA--oIMdFqQWsKS3BQoZ8BOwuhK'
     },
-  });
+    pokemon_gaia: {
+        path: path.join(__dirname, 'games', 'Pokemon_Gaia_v3.2.gba'),
+        url:'https://drive.google.com/uc?export=download&id=14B4nPQ3FDgDT9IVdFgGcKW37ahK65tmA'
+    },
+    pokemon_liquid: {
+        path: path.join(__dirname, 'games', 'Pokemon Liquid Crystal.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1zusV4QBg63ZyHdAcqQNFbUFNuDTLoh10'
+    },
+    pokemon_SwSh: {
+        path: path.join(__dirname, 'games', 'PKM SwSh ULTIMATE+.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1jT9-hAYakkwzmiHMOKx7OuceCXaU95oW'
+    },
+    pokemon_verde_musgo: {
+        path: path.join(__dirname, 'games', 'PK Verde Musgo.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1qLkJg4nEexGFZKW1XNSj-RWbnUnTd_sx'
+    },
+    pokemon_fusion: {
+        path: path.join(__dirname, 'games', 'PK Fusion 3.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1BaM7LS-OX0_urylmf9Y8QrQC0WgzwZqz'
+    },
+    pokemon_light_platinum: {
+        path: path.join(__dirname, 'games', 'LIGHT PLATINUM.GBA'),
+        url:'https://drive.google.com/uc?export=download&id=1XjBF5UNYpjHTgNxvfKp8Dlq5d0R-aV5y'
+    },
+    pokemon_emerald_randomizer: {
+        path: path.join(__dirname, 'games', 'Pokémon Emerald Randomizer Nuzlocke.gba'),
+        url:'https://drive.google.com/uc?export=download&id=199BOTGF_sA9ATAl2OUxGvwDa8y1pZTTa'
+    },
+    pokemon_blue_star: {
+        path: path.join(__dirname, 'games', 'PK Blue Stars 4.gba'),
+        url:'https://drive.google.com/uc?export=download&id=1wnkprD9SCrVG49uSFitLxvHswIGL90co'
+    },
+};
 
-  win.loadFile(path.join(__dirname, 'index.html'));
-}
 
-// Função principal que inicia o download do emulador e da ROM
-ipcMain.on('launch-game', (event, gameName) => {
-  // Primeiro, baixar o emulador, se ainda não foi baixado
-  if (!fs.existsSync(emulatorPath)) {
-    console.log('Baixando o emulador...');
-    downloadFile(emulatorUrl, emulatorPath)
-      .then(() => {
-        console.log('Emulador baixado com sucesso.');
-        downloadAndRunGame();
-      })
-      .catch(err => {
-        console.error('Erro ao baixar o emulador:', err);
-      });
-  } else {
-    console.log('Emulador já existe.');
-    downloadAndRunGame();  // Se o emulador já está baixado, baixar e rodar o jogo
-  }
-});
+const emulatorPath = path.join(__dirname, 'emulator', 'visualboyadvance-m.exe'); // ajuste conforme o seu emulador
 
-// Função para baixar e executar a ROM
-function downloadAndRunGame() {
-  // Baixar a ROM
-  if (!fs.existsSync(romPath)) {
-    console.log('Baixando a ROM...');
-    downloadFile(romUrl, romPath)
-      .then(() => {
-        console.log('ROM baixada com sucesso! Executando o emulador...');
-        runEmulatorWithGame();
-      })
-      .catch(err => {
-        console.error('Erro ao baixar a ROM:', err);
-      });
-  } else {
-    console.log('ROM já baixada. Executando o emulador...');
-    runEmulatorWithGame();
-  }
-}
+let mainWindow;
 
-// Função para baixar arquivos usando axios
-function downloadFile(url, dest) {
-  return new Promise((resolve, reject) => {
-    const writer = fs.createWriteStream(dest);
-
-    axios({
-      method: 'get',
-      url,
-      responseType: 'stream',
-    })
-    .then(response => {
-      response.data.pipe(writer);
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    })
-    .catch(err => {
-      fs.unlink(dest, () => reject(err));
+function createWindow() {
+   
+    mainWindow = new BrowserWindow({
+        width: 1024,
+        height: 788,
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        },
+        frame: false, 
     });
-  });
+
+    mainWindow.loadFile(path.join(__dirname, 'index.html'));
 }
 
-// Função para executar o emulador com o jogo
-function runEmulatorWithGame() {
-  exec(`"${emulatorPath}" "${romPath}"`, (err) => {
-    if (err) {
-      console.error('Erro ao abrir o emulador:', err);
+// Listener para lançar o jogo
+ipcMain.on('launch-game', (event, gameName) => {
+    const game = games[gameName];
+    if (game && fs.existsSync(emulatorPath)) {
+        downloadAndRunGame(game);
+    } else {
+        console.error('Emulador ou jogo não encontrado.');
     }
-  });
-}
-
-// Inicializa a aplicação Electron
-app.whenReady().then(() => {
-  createWindow();
 });
 
+ipcMain.on('minimize-window', () => {
+    if (mainWindow) {
+        mainWindow.minimize();
+    }
+});
+
+// Listener para fechar o launcher
+ipcMain.on('close-window', () => {
+    if (mainWindow) {
+        mainWindow.close();
+    }
+});
+
+function downloadAndRunGame(game) {
+    if (!fs.existsSync(game.path)) {
+        console.log('Baixando a ROM...');
+        downloadFile(game.url, game.path, (progress) => {
+            mainWindow.webContents.send('download-progress', progress);
+        })
+        .then(() => {
+            console.log('ROM baixada com sucesso! Executando o emulador...');
+            runEmulatorWithGame(game.path);
+        })
+        .catch(err => {
+            console.error('Erro ao baixar a ROM:', err);
+        });
+    } else {
+        runEmulatorWithGame(game.path);
+    }
+}
+
+function downloadFile(url, dest, onProgress) {
+    return new Promise((resolve, reject) => {
+        const writer = fs.createWriteStream(dest);
+        axios({
+            method: 'get',
+            url,
+            responseType: 'stream',
+        }).then(response => {
+            const totalLength = response.headers['content-length'];
+            let downloadedLength = 0;
+
+            response.data.on('data', chunk => {
+                downloadedLength += chunk.length;
+                const progress = Math.round((downloadedLength / totalLength) * 100);
+                onProgress(progress); // Envia o progresso para o renderer process
+            });
+
+            response.data.pipe(writer);
+            writer.on('finish', resolve);
+            writer.on('error', reject);
+        }).catch(err => {
+            fs.unlink(dest, () => reject(err)); // Remove arquivo se erro
+        });
+    });
+}
+
+// Função para executar o emulador com a ROM
+function runEmulatorWithGame(romPath) {
+    exec(`"${emulatorPath}" "${romPath}"`, (err) => {
+        if (err) {
+            console.error('Erro ao abrir o emulador:', err);
+        }
+    });
+}
+
+// Inicialização do aplicativo
+app.whenReady().then(createWindow);
+
+// Fechar a aplicação se todas as janelas forem fechadas
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });

@@ -5,57 +5,109 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Launcher</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #111010;
-        }
-
-        .game-card {
-            width: 250px;
-            padding: 15px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .game-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .game-card img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .game-title {
-            margin-top: 10px;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-card" onclick="launchGame()">
-        <img src="img/pokemn.jpg" alt="Pokémon Fire Red">
-        <div class="game-title">Pokémon Fire Red </div>
+    <div class="header">
+        <h1 class="welcome">Bem-vindo ao RetroLauncher!</h1>
+        <div class="window-buttons">
+            <button id="minimize">_</button>
+            <button id="close">X</button>
+        </div>
     </div>
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_radicalred')">
+            <img src="img/pokemon-radical-red.jpg" alt="Pokémon Radical Red">
+            <div class="game-title">Pokémon Radical red</div>
+            <div class="game-description">
+                <li>Autor: Yuuiii</li>
+                <li>Idioma:English</li>
+                </div>
+        </div>
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_gaia')">
+            <img src="img/pokemongaia.png" alt="Pokémon Radical Red">
+            <div class="game-title">Pokémon Gaia</div>
+            <div class="game-description">
+                <li>Autor: Spherical Ice</li>
+                <li>Idioma:Inglês.</li></div>
+        </div>
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_liquid')">
+            <img src="img/liquid_crystal.jpg" alt="Pokémon Liquid Crystal">
+            <div class="game-title">Pokémon Liquid Crystal</div>
+            <div class="game-description">
+                <li>Autores: inkandzelda, Synyster Zeikku, Jambo51, Magnius, Ray Maverick,FIQ.</li>
+                <li>Idioma:Inglês.</li></div>
+        </div>  
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_SwSh')">
+            <img src="img/sword_shield.png" alt="Pokemon Sword And Shield Ultimate[PT-BR]">
+            <div class="game-title">Pokemon Sword And Shield Ultimate[PT-BR]</div>
+            <div class="game-description">
+                <li>Autores: Pcl.g” e “Jean Stars”.</li>
+                <li>Idioma:Português (BR).</li></div>
+        </div>
+
+        <!--    
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_fusion')">
+            <img src="img/fusion.png" alt="Pokemon Fusion 3">
+            <div class="game-title">Pokemon Fusion 3</div>
+            <div class="game-description">
+                <li>Autores:Grillo&Lugre.</li>
+                <li>Idioma:Spanish.</li></div>                       
+    </div>
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_light_platinum')">
+            <img src="img/lightplatinum.png" alt="Pokémon Light Platinum GBA PT-BR">
+            <div class="game-title">Pokémon Light Platinum GBA PT-BR</div>
+            <div class="game-description">
+                <li>Autores:WesleyFG.</li>
+                <li>Idioma:Português (BR).</li></div>
+    </div>
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_emerald_randomizer')">
+            <img src="img/lightplatinum.png" alt="Pokémon Emerald Randomizer Nuzlocke.gba">
+            <div class="game-title">Pokémon Emerald Randomizer Nuzlocke.gba</div>
+            <div class="game-description">
+                <li>Autores:Souma.</li>
+                <li>Idioma:Inglês.</li></div>
+    </div>                  
+    <div class="game-container">
+        <div class="game-card" onclick="launchGame('pokemon_blue_star')">
+            <img src="img/lightplatinum.png" alt="Pokémon Blue Stars 4 [PT-BR]">
+            <div class="game-title">Pokémon Blue Stars 4 [PT-BR]</div>
+            <div class="game-description">
+                <li>Autores:JEAN STAR.</li>
+                <li>Idioma:Português (BR).</li></div>
+    </div>      
+    -->
+
+
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
 
     <script>
         const { ipcRenderer } = require('electron');
 
-        function launchGame() {
-            ipcRenderer.send('launch-game', 'pokemon_red');
+        function launchGame(gameName) {
+            ipcRenderer.send('launch-game', gameName);
         }
+
+        document.getElementById('minimize').addEventListener('click', () => {
+            ipcRenderer.send('minimize-window');
+        });
+
+        document.getElementById('close').addEventListener('click', () => {
+            ipcRenderer.send('close-window');
+        });
+        ipcRenderer.on('download-progress', (event, progress) => {
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = progress + '%';
+            progressBar.innerText = progress + '%';
+        });
     </script>
 </body>
 </html>

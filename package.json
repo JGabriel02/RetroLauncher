@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "src/main.js",
   "scripts": {
-  "start": "electron .",
-  "package-win": "electron-packager . RetroLauncher --platform=win32 --arch=x64 --out=out --overwrite --icon=Shadow.ico"
-},
-
+    "start": "electron .",
+    "package-win": "electron-packager . PokeLauncher --platform=win32 --arch=x64 --out=out --overwrite --icon=masterball.ico"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +15,7 @@
     "electron-packager": "^17.1.2"
   },
   "dependencies": {
-    "axios": "^1.7.7"
+    "axios": "^1.7.7",
+    "bootstrap": "^5.3.3"
   }
 }

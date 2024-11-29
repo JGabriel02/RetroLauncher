@@ -103,4 +103,4 @@ Abra um **Pull Request** e descreva as mudanças.
 
 ## 📧 Contato
 
-Para dúvidas ou sugestões, entre em contato através do GitHub ou por [e-mail](joaogabrielrocha.dev@gmail.com).
+Para dúvidas ou sugestões, entre em contato através do GitHub ou por (joaogabrielrocha.dev@gmail.com).

@@ -1,17 +1,26 @@
 {
   "name": "meu-launcher",
   "version": "1.0.0",
+  "description": "Um launcher para Hack Rooms de Pokémon.",
   "main": "src/main.js",
+  "build": {
+    "appId": "com.pokelauncher.app",
+    "win": {
+      "target": "nsis",
+      "icon": "masterball.ico"
+    }
+  },
   "scripts": {
     "start": "electron .",
-    "package-win": "electron-packager . PokeLauncher --platform=win32 --arch=x64 --out=out --overwrite --icon=masterball.ico"
+    "package-win": "electron-packager . PokeLauncher --platform=win32 --arch=x64 --out=out --overwrite --icon=masterball.ico", 
+    "dist": "electron-builder" 
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "electron": "^32.1.2",
+    "electron-builder": "^25.1.8",
     "electron-packager": "^17.1.2"
   },
   "dependencies": {

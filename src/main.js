@@ -8,7 +8,7 @@ const axios = require('axios');
 const games = {
     pokemon_radicalred: { path: 'radicalred.gba', url: 'https://drive.google.com/uc?export=download&id=1Sv4jGmA--oIMdFqQWsKS3BQoZ8BOwuhK' },
     pokemon_gaia: { path: 'Pokemon_Gaia_v3.2.gba', url: 'https://drive.google.com/uc?export=download&id=14B4nPQ3FDgDT9IVdFgGcKW37ahK65tmA' },
-    pokemon_liquid: { path: 'Pokemon Liquid Crystal.gba', url: 'https://drive.google.com/uc?export=download&id=1Sv4jGmA--oIMdFqQWsKS3BQoZ8BOwuhK' },
+    pokemon_liquid: { path: 'Pokemon Liquid Crystal.gba', url: 'https://drive.google.com/uc?export=download&id=1zusV4QBg63ZyHdAcqQNFbUFNuDTLoh10' },
     pokemon_SwSh: { path: 'PKM SwSh ULTIMATE+.gba', url: 'https://drive.google.com/uc?export=download&id=1jT9-hAYakkwzmiHMOKx7OuceCXaU95oW' },
     pokemon_verde_musgo: { path: 'PK Verde Musgo.gba', url: 'https://drive.google.com/uc?export=download&id=1qLkJg4nEexGFZKW1XNSj-RWbnUnTd_sx' },
     pokemon_fusion: { path: 'PK Fusion 3.gba', url: 'https://drive.google.com/uc?export=download&id=1BaM7LS-OX0_urylmf9Y8QrQC0WgzwZqz' },

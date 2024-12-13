@@ -26,6 +26,7 @@ function createWindow() {
         width: 1024,
         height: 788,
         resizable: false,
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

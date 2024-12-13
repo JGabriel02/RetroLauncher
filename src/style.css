@@ -25,6 +25,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
+    -webkit-app-region: drag;
 }
 
 .welcome {
@@ -34,7 +35,8 @@ body {
 
 .window-buttons {
     display: flex;
-    margin-right: 20px
+    margin-right: 20px;
+    -webkit-app-region: no-drag;
 }
 
 .window-buttons button {

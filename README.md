@@ -1,6 +1,6 @@
-# RetroLauncher
+# PokeLauncher
 
-**RetroLauncher** é um aplicativo desktop desenvolvido em **Electron** para centralizar, organizar e facilitar o acesso a jogos retrô. O launcher inclui um emulador integrado e suporta o download e execução de ROMs de forma simplificada.
+**PokeLauncher** é um aplicativo desktop desenvolvido em **Electron** para centralizar, organizar e facilitar o acesso a jogos retrô. O launcher inclui um emulador integrado e suporta o download e execução de ROMs de forma simplificada.
 
 ## 📋 Funcionalidades
 
